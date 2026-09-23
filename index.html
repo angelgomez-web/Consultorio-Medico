@@ -329,124 +329,7 @@
         </main>
     </div>
 
-let modoPacienteNuevo = false;
 
-// Abrir y cerrar Modal
-window.abrirModalTurno = function() {
-    const modal = document.getElementById('modal-turno');
-    modal.classList.remove('hidden');
-    
-    // Asignar fecha de hoy por defecto si está vacío
-    const fechaInput = document.getElementById('turno-fecha');
-    if(!fechaInput.value) {
-        fechaInput.value = new Date().toISOString().split('T')[0];
-    }
-};
-
-window.cerrarModalTurno = function() {
-    document.getElementById('modal-turno').classList.add('hidden');
-    document.getElementById('form-nuevo-turno').reset();
-    document.getElementById('sec-particular-campos').classList.add('hidden');
-    document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
-    modoPacienteNuevo = false;
-    toggleModoAltaPaciente(false);
-};
-
-// Alternar entre búsqueda y Alta Rápida de Paciente
-window.toggleModoAltaPaciente = function(forzar) {
-    if (forzar !== undefined) modoPacienteNuevo = forzar;
-    else modoPacienteNuevo = !modoPacienteNuevo;
-
-    const secBuscar = document.getElementById('sec-buscar-paciente');
-    const secAlta = document.getElementById('sec-alta-paciente');
-    const btnToggle = document.getElementById('btn-toggle-alta');
-
-    if (modoPacienteNuevo) {
-        secBuscar.classList.add('hidden');
-        secAlta.classList.remove('hidden');
-        btnToggle.innerText = "← Volver a Buscador";
-        btnToggle.classList.replace('text-primary-600', 'text-slate-500');
-    } else {
-        secBuscar.classList.remove('hidden');
-        secAlta.classList.add('hidden');
-        btnToggle.innerText = "+ Registrar Paciente Nuevo";
-        btnToggle.classList.replace('text-slate-500', 'text-primary-600');
-    }
-};
-
-window.toggleSeccionParticular = function() {
-    const check = document.getElementById('turno-es-particular');
-    const sec = document.getElementById('sec-particular-campos');
-    if (check.checked) sec.classList.remove('hidden');
-    else sec.classList.add('hidden');
-};
-
-// Guardar Turno (Soporta Pacientes Nuevos y Existentes)
-window.guardarNuevoTurno = async function(e) {
-    e.preventDefault();
-
-    let nombrePaciente = "";
-    let dniPaciente = "";
-    let obraSocialPaciente = "Particular";
-
-    if (modoPacienteNuevo) {
-        nombrePaciente = document.getElementById('nuevo-paciente-nombre').value.trim();
-        dniPaciente = document.getElementById('nuevo-paciente-dni').value.trim();
-        obraSocialPaciente = document.getElementById('nuevo-paciente-os').value.trim() || "Particular";
-
-        if (!nombrePaciente || !dniPaciente) {
-            alert("Por favor ingrese el Nombre y DNI del nuevo paciente.");
-            return;
-        }
-
-        // Guardar automáticamente el nuevo paciente en la colección 'pacientes'
-        try {
-            await addDoc(collection(db, "pacientes"), {
-                nombre: nombrePaciente,
-                dni: dniPaciente,
-                obraSocial: obraSocialPaciente,
-                creado: new Date()
-            });
-        } catch (err) {
-            console.error("Error al registrar el paciente nuevo:", err);
-        }
-    } else {
-        nombrePaciente = document.getElementById('turno-paciente-nombre').value;
-        dniPaciente = document.getElementById('buscar-paciente-input').value;
-        obraSocialPaciente = document.getElementById('turno-paciente-obra').value || "Particular";
-
-        if (!nombrePaciente) {
-            alert("Por favor busque y seleccione un paciente o registre uno nuevo.");
-            return;
-        }
-    }
-
-    const esPart = document.getElementById('turno-es-particular').checked;
-
-    const nuevoTurno = {
-        pacienteNombre: nombrePaciente,
-        pacienteDni: dniPaciente,
-        obraSocial: obraSocialPaciente,
-        fecha: document.getElementById('turno-fecha').value,
-        hora: document.getElementById('turno-hora').value,
-        motivo: document.getElementById('turno-motivo').value,
-        esParticular: esPart,
-        monto: esPart ? (parseFloat(document.getElementById('turno-monto').value) || 0) : 0,
-        medioPago: esPart ? document.getElementById('turno-medio-pago').value : "",
-        notas: document.getElementById('turno-notas').value,
-        estado: "Pendiente",
-        creado: new Date()
-    };
-
-    try {
-        await addDoc(collection(db, "turnos"), nuevoTurno);
-        alert("¡Turno guardado con éxito!");
-        cerrarModalTurno();
-    } catch (error) {
-        console.error("Error al guardar turno:", error);
-        alert("Error al guardar el turno: " + error.message);
-    }
-};
 
             <form id="form-nuevo-turno" class="space-y-4">
                 <!-- BUSCADOR DE PACIENTES -->
@@ -980,6 +863,125 @@ window.cargarPacientesPrueba = async function() {
     } catch (e) {
         console.error("Error al cargar prueba:", e);
         alert("Error al cargar datos: " + e.message);
+    }
+};
+
+        let modoPacienteNuevo = false;
+
+// Abrir y cerrar Modal
+window.abrirModalTurno = function() {
+    const modal = document.getElementById('modal-turno');
+    modal.classList.remove('hidden');
+    
+    // Asignar fecha de hoy por defecto si está vacío
+    const fechaInput = document.getElementById('turno-fecha');
+    if(!fechaInput.value) {
+        fechaInput.value = new Date().toISOString().split('T')[0];
+    }
+};
+
+window.cerrarModalTurno = function() {
+    document.getElementById('modal-turno').classList.add('hidden');
+    document.getElementById('form-nuevo-turno').reset();
+    document.getElementById('sec-particular-campos').classList.add('hidden');
+    document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
+    modoPacienteNuevo = false;
+    toggleModoAltaPaciente(false);
+};
+
+// Alternar entre búsqueda y Alta Rápida de Paciente
+window.toggleModoAltaPaciente = function(forzar) {
+    if (forzar !== undefined) modoPacienteNuevo = forzar;
+    else modoPacienteNuevo = !modoPacienteNuevo;
+
+    const secBuscar = document.getElementById('sec-buscar-paciente');
+    const secAlta = document.getElementById('sec-alta-paciente');
+    const btnToggle = document.getElementById('btn-toggle-alta');
+
+    if (modoPacienteNuevo) {
+        secBuscar.classList.add('hidden');
+        secAlta.classList.remove('hidden');
+        btnToggle.innerText = "← Volver a Buscador";
+        btnToggle.classList.replace('text-primary-600', 'text-slate-500');
+    } else {
+        secBuscar.classList.remove('hidden');
+        secAlta.classList.add('hidden');
+        btnToggle.innerText = "+ Registrar Paciente Nuevo";
+        btnToggle.classList.replace('text-slate-500', 'text-primary-600');
+    }
+};
+
+window.toggleSeccionParticular = function() {
+    const check = document.getElementById('turno-es-particular');
+    const sec = document.getElementById('sec-particular-campos');
+    if (check.checked) sec.classList.remove('hidden');
+    else sec.classList.add('hidden');
+};
+
+// Guardar Turno (Soporta Pacientes Nuevos y Existentes)
+window.guardarNuevoTurno = async function(e) {
+    e.preventDefault();
+
+    let nombrePaciente = "";
+    let dniPaciente = "";
+    let obraSocialPaciente = "Particular";
+
+    if (modoPacienteNuevo) {
+        nombrePaciente = document.getElementById('nuevo-paciente-nombre').value.trim();
+        dniPaciente = document.getElementById('nuevo-paciente-dni').value.trim();
+        obraSocialPaciente = document.getElementById('nuevo-paciente-os').value.trim() || "Particular";
+
+        if (!nombrePaciente || !dniPaciente) {
+            alert("Por favor ingrese el Nombre y DNI del nuevo paciente.");
+            return;
+        }
+
+        // Guardar automáticamente el nuevo paciente en la colección 'pacientes'
+        try {
+            await addDoc(collection(db, "pacientes"), {
+                nombre: nombrePaciente,
+                dni: dniPaciente,
+                obraSocial: obraSocialPaciente,
+                creado: new Date()
+            });
+        } catch (err) {
+            console.error("Error al registrar el paciente nuevo:", err);
+        }
+    } else {
+        nombrePaciente = document.getElementById('turno-paciente-nombre').value;
+        dniPaciente = document.getElementById('buscar-paciente-input').value;
+        obraSocialPaciente = document.getElementById('turno-paciente-obra').value || "Particular";
+
+        if (!nombrePaciente) {
+            alert("Por favor busque y seleccione un paciente o registre uno nuevo.");
+            return;
+        }
+    }
+
+    const esPart = document.getElementById('turno-es-particular').checked;
+
+    const nuevoTurno = {
+        pacienteNombre: nombrePaciente,
+        pacienteDni: dniPaciente,
+        obraSocial: obraSocialPaciente,
+        fecha: document.getElementById('turno-fecha').value,
+        hora: document.getElementById('turno-hora').value,
+        motivo: document.getElementById('turno-motivo').value,
+        esParticular: esPart,
+        monto: esPart ? (parseFloat(document.getElementById('turno-monto').value) || 0) : 0,
+        medioPago: esPart ? document.getElementById('turno-medio-pago').value : "",
+        notas: document.getElementById('turno-notas').value,
+        estado: "Pendiente",
+        creado: new Date()
+    };
+
+    try {
+        await addDoc(collection(db, "turnos"), nuevoTurno);
+        alert("¡Turno guardado con éxito!");
+        cerrarModalTurno();
+    } catch (error) {
+        console.error("Error al guardar turno:", error);
+        alert("Error al guardar el turno: " + error.message);
     }
 };
     </script>

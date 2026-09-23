@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultorio Médico - Turnero Inteligente con Cobros</title>
+    <title>Consultorio Médico - Turnero Inteligente</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -184,6 +184,9 @@
                         <label class="text-xs font-bold text-slate-500 uppercase">Fecha:</label>
                         <input type="date" id="filtro-fecha-turno" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-sm font-semibold focus:ring-2 focus:ring-primary-500 outline-none">
                     </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="filtrarFechaHoy()" class="px-3 py-1.5 text-xs font-bold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-colors">Hoy</button>
+                    </div>
                 </div>
 
                 <!-- TABLA DE TURNOS -->
@@ -218,18 +221,82 @@
                     </h2>
                     <p class="text-sm text-slate-500 dark:text-slate-400">Registro oficial de nuevos pacientes almacenados en Firebase.</p>
                 </div>
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
+                    <form id="form-paciente" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">DNI / Documento *</label>
+                                <input type="text" id="pac-dni" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Apellido(s) *</label>
+                                <input type="text" id="pac-apellido" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Nombre(s) *</label>
+                                <input type="text" id="pac-nombre" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Fecha de Nacimiento</label>
+                                <input type="date" id="pac-fnac" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Sexo Biológico</label>
+                                <select id="pac-sexo" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Teléfono / Celular</label>
+                                <input type="text" id="pac-telefono" placeholder="Ej: 11 4433-2211" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Obra Social / Prepaga</label>
+                                <select id="pac-osocial" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                                    <option value="Particular">Particular (Abona Consulta)</option>
+                                    <option value="OSDE">OSDE</option>
+                                    <option value="Swiss Medical">Swiss Medical</option>
+                                    <option value="IOMA">IOMA</option>
+                                    <option value="PAMI">PAMI</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">N° Afiliado</label>
+                                <input type="text" id="pac-afiliado" placeholder="Ej: 0-1234567-01" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Plan</label>
+                                <input type="text" id="pac-plan" placeholder="Ej: 210 / 310" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end gap-3 pt-4">
+                            <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white hover:bg-primary-700 font-semibold text-sm shadow-md transition-all flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4"></i> Guardar Paciente en Firebase
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
             <!-- OTROS MÓDULOS -->
-            <div id="mod-atencion" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Atención Médica</h2></div>
-            <div id="mod-fichas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Fichas y Estudios</h2></div>
-            <div id="mod-estadisticas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Estadísticas</h2></div>
-            <div id="mod-balance" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Balance</h2></div>
+            <div id="mod-atencion" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Atención Médica</h2><p class="text-slate-500">Módulo de historia clínica.</p></div>
+            <div id="mod-fichas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Fichas y Estudios</h2><p class="text-slate-500">Repositorio de archivos.</p></div>
+            <div id="mod-estadisticas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Estadísticas</h2><p class="text-slate-500">Panel métrico.</p></div>
+            <div id="mod-balance" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Balance</h2><p class="text-slate-500">Gestión de ingresos.</p></div>
 
         </main>
     </div>
 
-    <!-- MODAL AGENDAR TURNO (EKSATO ITI TENGNGA TI SCREEN) -->
+    <!-- MODAL AGENDAR TURNO (TOTALMENTE CENTRADO Y SUPERPUESTO) -->
     <div id="modal-turno" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5 relative my-auto">
             
@@ -243,22 +310,22 @@
             </div>
 
             <form id="form-nuevo-turno" onsubmit="guardarNuevoTurno(event)" class="space-y-4">
-                <!-- BUSCADOR / ALTA PACIENTE -->
+                <!-- CABECERA PACIENTE CON SWAP -->
                 <div class="flex justify-between items-center">
                     <label class="block text-xs font-bold text-slate-600 dark:text-slate-400">Paciente *</label>
                     <button type="button" id="btn-toggle-alta" onclick="toggleModoAltaPaciente()" class="text-xs font-semibold text-primary-600 hover:underline">+ Registrar Paciente Nuevo</button>
                 </div>
 
-                <!-- SEC 1: BUSCADOR -->
-                <div id="sec-buscar-paciente">
-                    <input type="text" id="buscar-paciente-input" placeholder="Escribe DNI o Apellido..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                    <div id="resultados-busqueda-pacientes" class="mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg max-h-36 overflow-y-auto hidden"></div>
+                <!-- SECCIÓN BUSCADOR -->
+                <div id="sec-buscar-paciente" class="relative">
+                    <input type="text" id="buscar-paciente-input" oninput="buscarPacientes(this.value)" placeholder="Escribe DNI o Apellido..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                    <div id="resultados-busqueda-pacientes" class="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl max-h-40 overflow-y-auto hidden z-50 divide-y divide-slate-100 dark:divide-slate-800"></div>
                     <input type="hidden" id="turno-paciente-nombre">
                     <input type="hidden" id="turno-paciente-obra">
-                    <p id="paciente-seleccionado-txt" class="text-xs font-semibold text-primary-600 dark:text-primary-400 mt-1.5 hidden"></p>
+                    <p id="paciente-seleccionado-txt" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-1.5 hidden"></p>
                 </div>
 
-                <!-- SEC 2: ALTA RÁPIDA -->
+                <!-- SECCIÓN REGISTRO RÁPIDO NUEVO PACIENTE -->
                 <div id="sec-alta-paciente" class="hidden space-y-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700">
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -338,7 +405,7 @@
         </div>
     </div>
 
-    <!-- INICIALIZACIÓN DE ICONOS LUCIDE -->
+    <!-- SCRIPT DE NAVEGACIÓN Y LUCIDE -->
     <script>
         lucide.createIcons();
 
@@ -354,12 +421,11 @@
         }
     </script>
 
-    <!-- LOGICA DE FIREBASE Y MODAL -->
+    <!-- LOGICA FIREBASE Y FUNCIONES DEL MODAL -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSy...", 
             authDomain: "tu-app.firebaseapp.com",
@@ -372,12 +438,25 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        let listaPacientesCache = [];
         let modoPacienteNuevo = false;
 
+        // Cargar Pacientes para el buscador
+        async function cargarPacientesCache() {
+            try {
+                const snap = await getDocs(collection(db, "pacientes"));
+                listaPacientesCache = [];
+                snap.forEach(doc => {
+                    listaPacientesCache.push({ id: doc.id, ...doc.data() });
+                });
+            } catch (e) {
+                console.error("Error al cargar pacientes:", e);
+            }
+        }
+        cargarPacientesCache();
+
         window.abrirModalTurno = function() {
-            const modal = document.getElementById('modal-turno');
-            modal.classList.remove('hidden');
-            
+            document.getElementById('modal-turno').classList.remove('hidden');
             const fechaInput = document.getElementById('turno-fecha');
             if(!fechaInput.value) {
                 fechaInput.value = new Date().toISOString().split('T')[0];
@@ -389,6 +468,7 @@
             document.getElementById('form-nuevo-turno').reset();
             document.getElementById('sec-particular-campos').classList.add('hidden');
             document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
+            document.getElementById('resultados-busqueda-pacientes').classList.add('hidden');
             modoPacienteNuevo = false;
             toggleModoAltaPaciente(false);
         };
@@ -412,6 +492,49 @@
                 btnToggle.innerText = "+ Registrar Paciente Nuevo";
                 btnToggle.classList.replace('text-slate-500', 'text-primary-600');
             }
+        };
+
+        window.buscarPacientes = function(valor) {
+            const contenedor = document.getElementById('resultados-busqueda-pacientes');
+            const txt = valor.toLowerCase().trim();
+
+            if (!txt) {
+                contenedor.classList.add('hidden');
+                return;
+            }
+
+            const filtrados = listaPacientesCache.filter(p => 
+                (p.nombre && p.nombre.toLowerCase().includes(txt)) || 
+                (p.dni && p.dni.includes(txt))
+            );
+
+            if (filtrados.length === 0) {
+                contenedor.innerHTML = `<div class="p-3 text-xs text-slate-400 text-center">No se encontraron pacientes</div>`;
+            } else {
+                contenedor.innerHTML = filtrados.map(p => `
+                    <div onclick="seleccionarPaciente('${p.nombre}', '${p.dni}', '${p.obraSocial || 'Particular'}')" class="p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer flex justify-between items-center text-xs">
+                        <div>
+                            <span class="font-bold text-slate-800 dark:text-white block">${p.nombre}</span>
+                            <span class="text-slate-400">DNI: ${p.dni}</span>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-semibold rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">${p.obraSocial || 'Particular'}</span>
+                    </div>
+                `).join('');
+            }
+
+            contenedor.classList.remove('hidden');
+        };
+
+        window.seleccionarPaciente = function(nombre, dni, obraSocial) {
+            document.getElementById('buscar-paciente-input').value = dni;
+            document.getElementById('turno-paciente-nombre').value = nombre;
+            document.getElementById('turno-paciente-obra').value = obraSocial;
+
+            const txtSel = document.getElementById('paciente-seleccionado-txt');
+            txtSel.innerText = `✓ Seleccionado: ${nombre} (${obraSocial})`;
+            txtSel.classList.remove('hidden');
+
+            document.getElementById('resultados-busqueda-pacientes').classList.add('hidden');
         };
 
         window.toggleSeccionParticular = function() {
@@ -445,8 +568,9 @@
                         obraSocial: obraSocialPaciente,
                         creado: new Date()
                     });
+                    cargarPacientesCache();
                 } catch (err) {
-                    console.error("Error al registrar el paciente nuevo:", err);
+                    console.error("Error al registrar paciente nuevo:", err);
                 }
             } else {
                 nombrePaciente = document.getElementById('turno-paciente-nombre').value;
@@ -454,7 +578,7 @@
                 obraSocialPaciente = document.getElementById('turno-paciente-obra').value || "Particular";
 
                 if (!nombrePaciente) {
-                    alert("Por favor busque y seleccione un paciente o registre uno nuevo.");
+                    alert("Por favor seleccione un paciente del buscador o registre uno nuevo.");
                     return;
                 }
             }
@@ -485,6 +609,12 @@
                 alert("Error al guardar el turno: " + error.message);
             }
         };
+
+        window.filtrarFechaHoy = function() {
+            const hoy = new Date().toISOString().split('T')[0];
+            document.getElementById('filtro-fecha-turno').value = hoy;
+        };
+        filtrarFechaHoy();
     </script>
 </body>
 </html>

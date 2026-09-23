@@ -736,6 +736,15 @@
         window.onload = function() {
             if (window.lucide) lucide.createIcons();
         };
+        function toggleSeccionParticular() {
+    const check = document.getElementById('turno-es-particular');
+    const sec = document.getElementById('sec-particular-campos');
+    if (check.checked) {
+        sec.classList.remove('hidden');
+    } else {
+        sec.classList.add('hidden');
+    }
+}
     </script>
 </body>
 </html>

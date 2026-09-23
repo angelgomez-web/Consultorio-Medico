@@ -373,6 +373,76 @@
             </form>
         </div>
     </div>
+                <!-- BUSCADOR DE PACIENTES -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Buscar Paciente *</label>
+                    <input type="text" id="buscar-paciente-input" placeholder="Escribe DNI o Apellido..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                    <div id="resultados-busqueda-pacientes" class="mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg max-h-36 overflow-y-auto hidden"></div>
+                    <input type="hidden" id="turno-paciente-id" required>
+                    <p id="paciente-seleccionado-txt" class="text-xs font-semibold text-primary-600 dark:text-primary-400 mt-1.5 hidden"></p>
+                </div>
+
+                <!-- FECHA Y HORA -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Fecha *</label>
+                        <input type="date" id="turno-fecha" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Hora *</label>
+                        <input type="time" id="turno-hora" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                    </div>
+                </div>
+
+                <!-- COBRO PARTICULAR O COPAGO -->
+                <div class="bg-amber-50 dark:bg-amber-950/20 p-3.5 rounded-xl border border-amber-200 dark:border-amber-900/40 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                            <i data-lucide="dollar-sign" class="w-4 h-4"></i> ¿Abona Consulta Particular o Copago?
+                        </label>
+                        <input type="checkbox" id="turno-es-particular" class="w-4 h-4 text-primary-600 rounded focus:ring-primary-500" onchange="toggleSeccionParticular()">
+                    </div>
+
+                    <div id="sec-particular-campos" class="grid grid-cols-2 gap-3 hidden pt-2 border-t border-amber-200/60 dark:border-amber-900/40">
+                        <div>
+                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Monto ($)</label>
+                            <input type="number" id="turno-monto" placeholder="Ej: 15000" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Medio de Pago</label>
+                            <select id="turno-medio-pago" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Transferencia">Transferencia / MercadoPago</option>
+                                <option value="Tarjeta">Tarjeta Débito/Crédito</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MOTIVO DE CONSULTA -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Motivo / Tipo de Consulta</label>
+                    <select id="turno-motivo" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                        <option value="Consulta General">Consulta General / Rutina</option>
+                        <option value="Control de Tratamiento">Control de Tratamiento</option>
+                        <option value="Estudios / Chequeo">Revisión de Estudios</option>
+                        <option value="Urgencia">Urgencia / Consulta Aguda</option>
+                    </select>
+                </div>
+
+                <!-- NOTAS -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Notas adicionales (opcional)</label>
+                    <textarea id="turno-notas" rows="2" placeholder="Ej: Traer análisis de laboratorio previa..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none resize-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                    <button type="button" onclick="cerrarModalTurno()" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-primary-600 text-white font-semibold text-sm hover:bg-primary-700 shadow-md transition-all">Guardar Turno</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- FIREBASE & SCRIPT DE FUNCIONALIDAD -->
     <script type="module">

@@ -82,7 +82,6 @@
             <div>
                 <span class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 pl-2">NAVEGACIÓN</span>
                 <nav class="space-y-1.5 mt-3" id="sidebar-nav">
-                    
                     <button onclick="navegarAModulo('turnos', this)" class="btn-nav w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-primary-600 text-white shadow-md shadow-primary-600/20 transition-all">
                         <div class="flex items-center space-x-3">
                             <i data-lucide="calendar" class="w-4 h-4"></i>
@@ -152,64 +151,60 @@
                     </button>
                 </div>
 
-      <!-- METRICAS DE HOY -->
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-    <!-- TOTAL DEL DÍA -->
-    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
-        <span class="text-xs font-bold text-slate-400 uppercase">Total del día</span>
-        <p class="text-2xl font-extrabold text-slate-800 dark:text-white mt-1" id="cnt-total">0</p>
-        
-        <!-- Tooltip -->
-        <div id="tooltip-total" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-sky-400">Pacientes del Día</span>
-            <div id="tooltip-total-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                <span class="text-slate-400 text-[11px]">Sin turnos hoy</span>
-            </div>
-        </div>
-    </div>
+                <!-- METRICAS DE HOY -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- TOTAL DEL DÍA -->
+                    <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Total del día</span>
+                        <p class="text-2xl font-extrabold text-slate-800 dark:text-white mt-1" id="cnt-total">0</p>
+                        
+                        <div id="tooltip-total" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
+                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-sky-400">Pacientes del Día</span>
+                            <div id="tooltip-total-lista" class="space-y-1 max-h-36 overflow-y-auto">
+                                <span class="text-slate-400 text-[11px]">Sin turnos hoy</span>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- PENDIENTES -->
-    <div class="group relative bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 cursor-pointer">
-        <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase">Pendientes</span>
-        <p class="text-2xl font-extrabold text-amber-700 dark:text-amber-300 mt-1" id="cnt-pendientes">0</p>
+                    <!-- PENDIENTES -->
+                    <div class="group relative bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 cursor-pointer">
+                        <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase">Pendientes</span>
+                        <p class="text-2xl font-extrabold text-amber-700 dark:text-amber-300 mt-1" id="cnt-pendientes">0</p>
 
-        <!-- Tooltip -->
-        <div id="tooltip-pendientes" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-amber-400">Turnos Pendientes</span>
-            <div id="tooltip-pendientes-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                <span class="text-slate-400 text-[11px]">Sin pendientes</span>
-            </div>
-        </div>
-    </div>
+                        <div id="tooltip-pendientes" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
+                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-amber-400">Turnos Pendientes</span>
+                            <div id="tooltip-pendientes-lista" class="space-y-1 max-h-36 overflow-y-auto">
+                                <span class="text-slate-400 text-[11px]">Sin pendientes</span>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- EN ESPERA -->
-    <div class="group relative bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-900/50 cursor-pointer">
-        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">En Espera</span>
-        <p class="text-2xl font-extrabold text-blue-700 dark:text-blue-300 mt-1" id="cnt-espera">0</p>
+                    <!-- EN ESPERA -->
+                    <div class="group relative bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-900/50 cursor-pointer">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">En Espera</span>
+                        <p class="text-2xl font-extrabold text-blue-700 dark:text-blue-300 mt-1" id="cnt-espera">0</p>
 
-        <!-- Tooltip -->
-        <div id="tooltip-espera" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-blue-400">Pacientes en Espera</span>
-            <div id="tooltip-espera-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                <span class="text-slate-400 text-[11px]">Nadie en sala de espera</span>
-            </div>
-        </div>
-    </div>
+                        <div id="tooltip-espera" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
+                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-blue-400">Pacientes en Espera</span>
+                            <div id="tooltip-espera-lista" class="space-y-1 max-h-36 overflow-y-auto">
+                                <span class="text-slate-400 text-[11px]">Nadie en sala de espera</span>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- RECAUDADO HOY -->
-    <div class="group relative bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/50 cursor-pointer">
-        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Recaudado Hoy</span>
-        <p class="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1" id="cnt-recaudado">$0</p>
+                    <!-- RECAUDADO HOY -->
+                    <div class="group relative bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/50 cursor-pointer">
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Recaudado Hoy</span>
+                        <p class="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1" id="cnt-recaudado">$0</p>
 
-        <!-- Tooltip -->
-        <div id="tooltip-recaudado" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-emerald-400">Detalle Particulares / Copagos</span>
-            <div id="tooltip-recaudado-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                <span class="text-slate-400 text-[11px]">Sin ingresos particulares hoy</span>
-            </div>
-        </div>
-    </div>
-</div>
+                        <div id="tooltip-recaudado" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
+                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-emerald-400">Detalle Particulares / Copagos</span>
+                            <div id="tooltip-recaudado-lista" class="space-y-1 max-h-36 overflow-y-auto">
+                                <span class="text-slate-400 text-[11px]">Sin ingresos particulares hoy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- FILTROS -->
                 <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-wrap gap-4 items-center justify-between">
@@ -329,16 +324,51 @@
         </main>
     </div>
 
+    <!-- MODAL AGENDAR TURNO (CENTRADO Y FLOTANTE) -->
+    <div id="modal-turno" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5 relative my-auto">
+            
+            <div class="flex justify-between items-center border-b border-slate-100 dark:border-slate-700 pb-3">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i data-lucide="calendar-plus" class="text-primary-600"></i> Agendar Nuevo Turno
+                </h3>
+                <button onclick="cerrarModalTurno()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
 
+            <form id="form-nuevo-turno" onsubmit="guardarNuevoTurno(event)" class="space-y-4">
+                <!-- BUSCADOR / ALTA PACIENTE -->
+                <div class="flex justify-between items-center">
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400">Paciente *</label>
+                    <button type="button" id="btn-toggle-alta" onclick="toggleModoAltaPaciente()" class="text-xs font-semibold text-primary-600 hover:underline">+ Registrar Paciente Nuevo</button>
+                </div>
 
-            <form id="form-nuevo-turno" class="space-y-4">
-                <!-- BUSCADOR DE PACIENTES -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Buscar Paciente *</label>
+                <!-- SEC 1: BUSCADOR -->
+                <div id="sec-buscar-paciente">
                     <input type="text" id="buscar-paciente-input" placeholder="Escribe DNI o Apellido..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
                     <div id="resultados-busqueda-pacientes" class="mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg max-h-36 overflow-y-auto hidden"></div>
-                    <input type="hidden" id="turno-paciente-id" required>
+                    <input type="hidden" id="turno-paciente-nombre">
+                    <input type="hidden" id="turno-paciente-obra">
                     <p id="paciente-seleccionado-txt" class="text-xs font-semibold text-primary-600 dark:text-primary-400 mt-1.5 hidden"></p>
+                </div>
+
+                <!-- SEC 2: ALTA RÁPIDA -->
+                <div id="sec-alta-paciente" class="hidden space-y-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 mb-1">Nombre y Apellido *</label>
+                            <input type="text" id="nuevo-paciente-nombre" placeholder="Ej: Juan Pérez" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 mb-1">DNI *</label>
+                            <input type="text" id="nuevo-paciente-dni" placeholder="Ej: 30123456" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm outline-none">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-slate-500 mb-1">Obra Social / Prepaga</label>
+                        <input type="text" id="nuevo-paciente-os" placeholder="Ej: OSDE / Particular" class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-1.5 text-sm outline-none">
+                    </div>
                 </div>
 
                 <!-- FECHA Y HORA -->
@@ -402,588 +432,154 @@
             </form>
         </div>
     </div>
-                <!-- BUSCADOR DE PACIENTES -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Buscar Paciente *</label>
-                    <input type="text" id="buscar-paciente-input" placeholder="Escribe DNI o Apellido..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                    <div id="resultados-busqueda-pacientes" class="mt-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg max-h-36 overflow-y-auto hidden"></div>
-                    <input type="hidden" id="turno-paciente-id" required>
-                    <p id="paciente-seleccionado-txt" class="text-xs font-semibold text-primary-600 dark:text-primary-400 mt-1.5 hidden"></p>
-                </div>
 
-                <!-- FECHA Y HORA -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Fecha *</label>
-                        <input type="date" id="turno-fecha" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Hora *</label>
-                        <input type="time" id="turno-hora" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                    </div>
-                </div>
+    <!-- INICIALIZACIÓN DE ICONOS LUCIDE -->
+    <script>
+        lucide.createIcons();
 
-                <!-- COBRO PARTICULAR O COPAGO -->
-                <div class="bg-amber-50 dark:bg-amber-950/20 p-3.5 rounded-xl border border-amber-200 dark:border-amber-900/40 space-y-3">
-                    <div class="flex items-center justify-between">
-                        <label class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
-                            <i data-lucide="dollar-sign" class="w-4 h-4"></i> ¿Abona Consulta Particular o Copago?
-                        </label>
-                        <input type="checkbox" id="turno-es-particular" class="w-4 h-4 text-primary-600 rounded focus:ring-primary-500" onchange="toggleSeccionParticular()">
-                    </div>
+        function navegarAModulo(idModulo, elementoBoton) {
+            document.querySelectorAll('.modulo-vista').forEach(m => m.classList.remove('active'));
+            document.getElementById('mod-' + idModulo).classList.add('active');
 
-                    <div id="sec-particular-campos" class="grid grid-cols-2 gap-3 hidden pt-2 border-t border-amber-200/60 dark:border-amber-900/40">
-                        <div>
-                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Monto ($)</label>
-                            <input type="number" id="turno-monto" placeholder="Ej: 15000" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Medio de Pago</label>
-                            <select id="turno-medio-pago" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
-                                <option value="Efectivo">Efectivo</option>
-                                <option value="Transferencia">Transferencia / MercadoPago</option>
-                                <option value="Tarjeta">Tarjeta Débito/Crédito</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+            document.querySelectorAll('.btn-nav').forEach(b => {
+                b.className = "btn-nav w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 transition-colors";
+            });
 
-                <!-- MOTIVO DE CONSULTA -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Motivo / Tipo de Consulta</label>
-                    <select id="turno-motivo" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                        <option value="Consulta General">Consulta General / Rutina</option>
-                        <option value="Control de Tratamiento">Control de Tratamiento</option>
-                        <option value="Estudios / Chequeo">Revisión de Estudios</option>
-                        <option value="Urgencia">Urgencia / Consulta Aguda</option>
-                    </select>
-                </div>
+            elementoBoton.className = "btn-nav w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-primary-600 text-white shadow-md shadow-primary-600/20 transition-all";
+        }
+    </script>
 
-                <!-- NOTAS -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Notas adicionales (opcional)</label>
-                    <textarea id="turno-notas" rows="2" placeholder="Ej: Traer análisis de laboratorio previa..." class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none resize-none"></textarea>
-                </div>
-
-                <div class="flex justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
-                    <button type="button" onclick="cerrarModalTurno()" class="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Cancelar</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl bg-primary-600 text-white font-semibold text-sm hover:bg-primary-700 shadow-md transition-all">Guardar Turno</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- FIREBASE & SCRIPT DE FUNCIONALIDAD -->
+    <!-- LOGICA DE FIREBASE Y MODAL -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
-            apiKey: "AIzaSyD3F9hIFzXPXyiR6GJTiBTWshmv31Xlxo0",
-            authDomain: "consultorio-medico-4d0cb.firebaseapp.com",
-            projectId: "consultorio-medico-4d0cb",
-            storageBucket: "consultorio-medico-4d0cb.firebasestorage.app",
-            messagingSenderId: "489180721625",
-            appId: "1:489180721625:web:8e032b8508e04651dae9c8",
-            measurementId: "G-3W127VVT1W"
+            apiKey: "AIzaSy...", 
+            authDomain: "tu-app.firebaseapp.com",
+            projectId: "tu-app",
+            storageBucket: "tu-app.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        let listaPacientesCache = [];
-        let listaTurnosCache = [];
-
-        // Inicializar Fecha de hoy en Filtro
-        const filtroFecha = document.getElementById('filtro-fecha-turno');
-        const hoyStr = new Date().toISOString().split('T')[0];
-        filtroFecha.value = hoyStr;
-
-        // Cargar Pacientes para Búsqueda
-        onSnapshot(collection(db, "pacientes"), (snapshot) => {
-            listaPacientesCache = [];
-            snapshot.forEach((doc) => {
-                listaPacientesCache.push({ id: doc.id, ...doc.data() });
-            });
-        });
-
-        // Cargar Turnos en Tiempo Real
-        onSnapshot(collection(db, "turnos"), (snapshot) => {
-            listaTurnosCache = [];
-            snapshot.forEach((doc) => {
-                listaTurnosCache.push({ id: doc.id, ...doc.data() });
-            });
-            renderizarTurnos();
-        });
-
-        // Filtrar y Renderizar Turnos
-        function renderizarTurnos() {
-            const fechaSeleccionada = filtroFecha.value;
-            const turnosDelDia = listaTurnosCache.filter(t => t.fecha === fechaSeleccionada);
-
-            turnosDelDia.sort((a, b) => a.hora.localeCompare(b.hora));
-
-            const tbody = document.getElementById('lista-turnos-tabla');
-            tbody.innerHTML = '';
-
-            let countTotal = turnosDelDia.length;
-            let countPendientes = 0;
-            let countEspera = 0;
-            let totalRecaudado = 0;
-
-            if (turnosDelDia.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No hay turnos agendados para la fecha seleccionada (${fechaSeleccionada})</td></tr>`;
-            } else {
-                turnosDelDia.forEach((t) => {
-                    if (t.estado === 'Pendiente') countPendientes++;
-                    if (t.estado === 'En Espera') countEspera++;
-                    
-                    if (t.esParticular && t.monto) {
-                        totalRecaudado += Number(t.monto);
-                    }
-
-                    let estadoBadge = '';
-                    let botonAccion = '';
-
-                    if (t.estado === 'Pendiente') {
-                        estadoBadge = `<span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-xs px-2.5 py-1 rounded-full font-bold">🟡 Pendiente</span>`;
-                        botonAccion = `<button onclick="cambiarEstadoTurno('${t.id}', 'En Espera')" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-colors">Llegó (En Espera)</button>`;
-                    } else if (t.estado === 'En Espera') {
-                        estadoBadge = `<span class="bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300 text-xs px-2.5 py-1 rounded-full font-bold">🔵 En Espera</span>`;
-                        botonAccion = `<button onclick="cambiarEstadoTurno('${t.id}', 'Atendido')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-colors">Atender</button>`;
-                    } else if (t.estado === 'Atendido') {
-                        estadoBadge = `<span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold">🟢 Atendido</span>`;
-                        botonAccion = `<span class="text-xs text-slate-400 font-semibold">Completado</span>`;
-                    } else {
-                        estadoBadge = `<span class="bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-xs px-2.5 py-1 rounded-full font-bold">🔴 Cancelado</span>`;
-                        botonAccion = `-`;
-                    }
-
-                    // Badge de Obra Social o Particular
-                    let infoPago = '';
-                    if (t.esParticular && t.monto) {
-                        infoPago = `
-                            <div>
-                                <span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-bold px-2 py-0.5 rounded-md">💵 Particular: $${t.monto}</span>
-                                <span class="block text-[10px] text-slate-400 mt-0.5">Medio: ${t.medioPago || 'Efectivo'}</span>
-                            </div>
-                        `;
-                    } else {
-                        infoPago = `<span class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${t.obraSocial || 'Particular'}</span>`;
-                    }
-
-                    tbody.innerHTML += `
-                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                            <td class="p-4 font-bold text-slate-800 dark:text-slate-200">${t.hora} hs</td>
-                            <td class="p-4">
-                                <span class="font-bold block text-slate-900 dark:text-white">${t.pacienteNombre}</span>
-                                <span class="text-xs text-slate-400">DNI: ${t.pacienteDni}</span>
-                            </td>
-                            <td class="p-4">${infoPago}</td>
-                            <td class="p-4 text-xs font-medium text-slate-600 dark:text-slate-400">${t.motivo}</td>
-                            <td class="p-4">${estadoBadge}</td>
-                            <td class="p-4 text-right">${botonAccion}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            document.getElementById('cnt-total').innerText = countTotal;
-            document.getElementById('cnt-pendientes').innerText = countPendientes;
-            document.getElementById('cnt-espera').innerText = countEspera;
-            document.getElementById('cnt-recaudado').innerText = `$${totalRecaudado.toLocaleString('es-AR')}`;
-        }
-
-        filtroFecha.addEventListener('change', renderizarTurnos);
-
-        window.filtrarFechaHoy = function() {
-            filtroFecha.value = new Date().toISOString().split('T')[0];
-            renderizarTurnos();
-        };
-
-        // Cambiar Estado del Turno en Firebase
-        window.cambiarEstadoTurno = async function(idTurno, nuevoEstado) {
-            try {
-                const turnoRef = doc(db, "turnos", idTurno);
-                await updateDoc(turnoRef, { estado: nuevoEstado });
-            } catch (err) {
-                alert("Error al actualizar turno: " + err.message);
-            }
-        };
-
-        // Guardar Paciente
-        const formPaciente = document.getElementById('form-paciente');
-        formPaciente.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            try {
-                await addDoc(collection(db, "pacientes"), {
-                    dni: document.getElementById('pac-dni').value,
-                    apellido: document.getElementById('pac-apellido').value,
-                    nombre: document.getElementById('pac-nombre').value,
-                    fnac: document.getElementById('pac-fnac').value,
-                    sexo: document.getElementById('pac-sexo').value,
-                    telefono: document.getElementById('pac-telefono').value,
-                    osocial: document.getElementById('pac-osocial').value,
-                    afiliado: document.getElementById('pac-afiliado').value,
-                    plan: document.getElementById('pac-plan').value,
-                    creado: new Date()
-                });
-                alert("✅ Paciente guardado con éxito en Firebase");
-                formPaciente.reset();
-            } catch (err) {
-                alert("Error al guardar paciente: " + err.message);
-            }
-        });
-
-        // Buscador de Pacientes en el Modal de Turno
-        const buscadorInput = document.getElementById('buscar-paciente-input');
-        const listaResultados = document.getElementById('resultados-busqueda-pacientes');
-
-        buscadorInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            if (query.length === 0) {
-                listaResultados.classList.add('hidden');
-                return;
-            }
-
-            const filtrados = listaPacientesCache.filter(p => 
-                p.nombre.toLowerCase().includes(query) || 
-                p.apellido.toLowerCase().includes(query) || 
-                p.dni.includes(query)
-            );
-
-            listaResultados.innerHTML = '';
-            if (filtrados.length === 0) {
-                listaResultados.innerHTML = `<div class="p-3 text-xs text-slate-400 text-center">No se encontraron pacientes</div>`;
-            } else {
-                filtrados.forEach(p => {
-                    const item = document.createElement('div');
-                    item.className = 'p-2.5 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer text-xs flex justify-between items-center border-b border-slate-100 dark:border-slate-800 last:border-0';
-                    item.innerHTML = `<div><strong class="text-slate-800 dark:text-slate-200">${p.apellido}, ${p.nombre}</strong> <span class="text-slate-400">(DNI: ${p.dni})</span></div><span class="text-xs bg-sky-100 text-sky-800 px-1.5 py-0.5 rounded font-bold">${p.osocial}</span>`;
-                    item.onclick = () => seleccionarPacienteTurno(p);
-                    listaResultados.appendChild(item);
-                });
-            }
-            listaResultados.classList.remove('hidden');
-        });
-
-        function seleccionarPacienteTurno(paciente) {
-            document.getElementById('turno-paciente-id').value = paciente.id;
-            document.getElementById('turno-paciente-id').setAttribute('data-nombre', `${paciente.apellido}, ${paciente.nombre}`);
-            document.getElementById('turno-paciente-id').setAttribute('data-dni', paciente.dni);
-            document.getElementById('turno-paciente-id').setAttribute('data-osocial', paciente.osocial);
-
-            const txtInfo = document.getElementById('paciente-seleccionado-txt');
-            txtInfo.innerText = `✓ Paciente Seleccionado: ${paciente.apellido}, ${paciente.nombre} (DNI: ${paciente.dni})`;
-            txtInfo.classList.remove('hidden');
-
-            // Auto-activar particular si el paciente es Particular
-            if (paciente.osocial === 'Particular') {
-                document.getElementById('turno-es-particular').checked = true;
-                window.toggleSeccionParticular();
-            }
-
-            buscadorInput.value = '';
-            listaResultados.classList.add('hidden');
-        }
-
-        // Guardar Nuevo Turno
-        const formTurno = document.getElementById('form-nuevo-turno');
-        formTurno.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const pacId = document.getElementById('turno-paciente-id').value;
-            if (!pacId) {
-                alert("Por favor busca y selecciona un paciente de la lista.");
-                return;
-            }
-
-            const esParticular = document.getElementById('turno-es-particular').checked;
-
-            try {
-                await addDoc(collection(db, "turnos"), {
-                    pacienteId: pacId,
-                    pacienteNombre: document.getElementById('turno-paciente-id').getAttribute('data-nombre'),
-                    pacienteDni: document.getElementById('turno-paciente-id').getAttribute('data-dni'),
-                    obraSocial: document.getElementById('turno-paciente-id').getAttribute('data-osocial'),
-                    fecha: document.getElementById('turno-fecha').value,
-                    hora: document.getElementById('turno-hora').value,
-                    motivo: document.getElementById('turno-motivo').value,
-                    notas: document.getElementById('turno-notas').value,
-                    esParticular: esParticular,
-                    monto: esParticular ? (document.getElementById('turno-monto').value || 0) : 0,
-                    medioPago: esParticular ? document.getElementById('turno-medio-pago').value : '',
-                    estado: 'Pendiente',
-                    creado: new Date()
-                });
-
-                alert("✅ Turno agendado con éxito");
-                cerrarModalTurno();
-            } catch (err) {
-                alert("Error al guardar turno: " + err.message);
-            }
-        });
-    </script>
-
-    <!-- INTERFAZ -->
-    <script>
-        function navegarAModulo(idModulo, elementoBoton) {
-            document.querySelectorAll('.modulo-vista').forEach(vista => vista.classList.remove('active'));
-            const moduloObjetivo = document.getElementById(`mod-${idModulo}`);
-            if (moduloObjetivo) moduloObjetivo.classList.add('active');
-
-            document.querySelectorAll('#sidebar-nav .btn-nav').forEach(btn => {
-                btn.className = "btn-nav w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/60 transition-colors";
-            });
-            if (elementoBoton) {
-                elementoBoton.className = "btn-nav w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold bg-primary-600 text-white shadow-md shadow-primary-600/20 transition-all";
-            }
-        }
-
-        function abrirModalTurno() {
-            document.getElementById('turno-fecha').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modal-turno').classList.remove('hidden');
-        }
-
-        function cerrarModalTurno() {
-            document.getElementById('modal-turno').classList.add('hidden');
-            document.getElementById('form-nuevo-turno').reset();
-            document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
-            document.getElementById('turno-paciente-id').value = '';
-            document.getElementById('sec-particular-campos').classList.add('hidden');
-        }
-
-        function toggleSeccionParticular() {
-            const check = document.getElementById('turno-es-particular');
-            const sec = document.getElementById('sec-particular-campos');
-            if (check.checked) {
-                sec.classList.remove('hidden');
-            } else {
-                sec.classList.add('hidden');
-            }
-        }
-
-        window.onload = function() {
-            if (window.lucide) lucide.createIcons();
-        };
-        function toggleSeccionParticular() {
-    const check = document.getElementById('turno-es-particular');
-    const sec = document.getElementById('sec-particular-campos');
-    if (check.checked) {
-        sec.classList.remove('hidden');
-    } else {
-        sec.classList.add('hidden');
-    }
-}
-        // ====================================================
-// FUNCIÓN PARA CARGAR DATOS DE PRUEBA (EJECUTAR UNA VEZ)
-// ====================================================
-window.cargarPacientesPrueba = async function() {
-    const hoyStr = new Date().toISOString().split('T')[0];
-
-    const datosPrueba = [
-        {
-            nombre: "Gómez, María",
-            dni: "32456789",
-            obraSocial: "OSDE",
-            monto: 0,
-            esParticular: false,
-            medioPago: "",
-            hora: "09:00",
-            motivo: "Consulta General",
-            estado: "Atendido",
-            fecha: hoyStr
-        },
-        {
-            nombre: "Pérez, Juan Carlos",
-            dni: "28912345",
-            obraSocial: "Particular",
-            monto: 15000,
-            esParticular: true,
-            medioPago: "Efectivo",
-            hora: "09:30",
-            motivo: "Control de Tratamiento",
-            estado: "Atendido",
-            fecha: hoyStr
-        },
-        {
-            nombre: "Fernández, Laura",
-            dni: "38123987",
-            obraSocial: "Swiss Medical",
-            monto: 0,
-            esParticular: false,
-            medioPago: "",
-            hora: "10:15",
-            motivo: "Revisión de Estudios",
-            estado: "En Espera",
-            fecha: hoyStr
-        },
-        {
-            nombre: "Rodríguez, Lucas",
-            dni: "41555666",
-            obraSocial: "Particular",
-            monto: 18000,
-            esParticular: true,
-            medioPago: "Transferencia",
-            hora: "11:00",
-            motivo: "Urgencia / Consulta Aguda",
-            estado: "En Espera",
-            fecha: hoyStr
-        },
-        {
-            nombre: "López, Ana María",
-            dni: "25888999",
-            obraSocial: "IOMA",
-            monto: 0,
-            esParticular: false,
-            medioPago: "",
-            hora: "11:30",
-            motivo: "Consulta General",
-            estado: "Pendiente",
-            fecha: hoyStr
-        }
-    ];
-
-    try {
-        for (const t of datosPrueba) {
-            await addDoc(collection(db, "turnos"), {
-                pacienteNombre: t.nombre,
-                pacienteDni: t.dni,
-                obraSocial: t.obraSocial,
-                monto: t.monto,
-                esParticular: t.esParticular,
-                medioPago: t.medioPago,
-                hora: t.hora,
-                motivo: t.motivo,
-                estado: t.estado,
-                fecha: t.fecha,
-                creado: new Date()
-            });
-        }
-        alert("✅ ¡5 Pacientes de prueba cargados exitosamente!");
-    } catch (e) {
-        console.error("Error al cargar prueba:", e);
-        alert("Error al cargar datos: " + e.message);
-    }
-};
-
         let modoPacienteNuevo = false;
 
-// Abrir y cerrar Modal
-window.abrirModalTurno = function() {
-    const modal = document.getElementById('modal-turno');
-    modal.classList.remove('hidden');
-    
-    // Asignar fecha de hoy por defecto si está vacío
-    const fechaInput = document.getElementById('turno-fecha');
-    if(!fechaInput.value) {
-        fechaInput.value = new Date().toISOString().split('T')[0];
-    }
-};
+        window.abrirModalTurno = function() {
+            const modal = document.getElementById('modal-turno');
+            modal.classList.remove('hidden');
+            
+            const fechaInput = document.getElementById('turno-fecha');
+            if(!fechaInput.value) {
+                fechaInput.value = new Date().toISOString().split('T')[0];
+            }
+        };
 
-window.cerrarModalTurno = function() {
-    document.getElementById('modal-turno').classList.add('hidden');
-    document.getElementById('form-nuevo-turno').reset();
-    document.getElementById('sec-particular-campos').classList.add('hidden');
-    document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
-    modoPacienteNuevo = false;
-    toggleModoAltaPaciente(false);
-};
+        window.cerrarModalTurno = function() {
+            document.getElementById('modal-turno').classList.add('hidden');
+            document.getElementById('form-nuevo-turno').reset();
+            document.getElementById('sec-particular-campos').classList.add('hidden');
+            document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
+            modoPacienteNuevo = false;
+            toggleModoAltaPaciente(false);
+        };
 
-// Alternar entre búsqueda y Alta Rápida de Paciente
-window.toggleModoAltaPaciente = function(forzar) {
-    if (forzar !== undefined) modoPacienteNuevo = forzar;
-    else modoPacienteNuevo = !modoPacienteNuevo;
+        window.toggleModoAltaPaciente = function(forzar) {
+            if (forzar !== undefined) modoPacienteNuevo = forzar;
+            else modoPacienteNuevo = !modoPacienteNuevo;
 
-    const secBuscar = document.getElementById('sec-buscar-paciente');
-    const secAlta = document.getElementById('sec-alta-paciente');
-    const btnToggle = document.getElementById('btn-toggle-alta');
+            const secBuscar = document.getElementById('sec-buscar-paciente');
+            const secAlta = document.getElementById('sec-alta-paciente');
+            const btnToggle = document.getElementById('btn-toggle-alta');
 
-    if (modoPacienteNuevo) {
-        secBuscar.classList.add('hidden');
-        secAlta.classList.remove('hidden');
-        btnToggle.innerText = "← Volver a Buscador";
-        btnToggle.classList.replace('text-primary-600', 'text-slate-500');
-    } else {
-        secBuscar.classList.remove('hidden');
-        secAlta.classList.add('hidden');
-        btnToggle.innerText = "+ Registrar Paciente Nuevo";
-        btnToggle.classList.replace('text-slate-500', 'text-primary-600');
-    }
-};
+            if (modoPacienteNuevo) {
+                secBuscar.classList.add('hidden');
+                secAlta.classList.remove('hidden');
+                btnToggle.innerText = "← Volver a Buscador";
+                btnToggle.classList.replace('text-primary-600', 'text-slate-500');
+            } else {
+                secBuscar.classList.remove('hidden');
+                secAlta.classList.add('hidden');
+                btnToggle.innerText = "+ Registrar Paciente Nuevo";
+                btnToggle.classList.replace('text-slate-500', 'text-primary-600');
+            }
+        };
 
-window.toggleSeccionParticular = function() {
-    const check = document.getElementById('turno-es-particular');
-    const sec = document.getElementById('sec-particular-campos');
-    if (check.checked) sec.classList.remove('hidden');
-    else sec.classList.add('hidden');
-};
+        window.toggleSeccionParticular = function() {
+            const check = document.getElementById('turno-es-particular');
+            const sec = document.getElementById('sec-particular-campos');
+            if (check.checked) sec.classList.remove('hidden');
+            else sec.classList.add('hidden');
+        };
 
-// Guardar Turno (Soporta Pacientes Nuevos y Existentes)
-window.guardarNuevoTurno = async function(e) {
-    e.preventDefault();
+        window.guardarNuevoTurno = async function(e) {
+            e.preventDefault();
 
-    let nombrePaciente = "";
-    let dniPaciente = "";
-    let obraSocialPaciente = "Particular";
+            let nombrePaciente = "";
+            let dniPaciente = "";
+            let obraSocialPaciente = "Particular";
 
-    if (modoPacienteNuevo) {
-        nombrePaciente = document.getElementById('nuevo-paciente-nombre').value.trim();
-        dniPaciente = document.getElementById('nuevo-paciente-dni').value.trim();
-        obraSocialPaciente = document.getElementById('nuevo-paciente-os').value.trim() || "Particular";
+            if (modoPacienteNuevo) {
+                nombrePaciente = document.getElementById('nuevo-paciente-nombre').value.trim();
+                dniPaciente = document.getElementById('nuevo-paciente-dni').value.trim();
+                obraSocialPaciente = document.getElementById('nuevo-paciente-os').value.trim() || "Particular";
 
-        if (!nombrePaciente || !dniPaciente) {
-            alert("Por favor ingrese el Nombre y DNI del nuevo paciente.");
-            return;
-        }
+                if (!nombrePaciente || !dniPaciente) {
+                    alert("Por favor ingrese el Nombre y DNI del nuevo paciente.");
+                    return;
+                }
 
-        // Guardar automáticamente el nuevo paciente en la colección 'pacientes'
-        try {
-            await addDoc(collection(db, "pacientes"), {
-                nombre: nombrePaciente,
-                dni: dniPaciente,
+                try {
+                    await addDoc(collection(db, "pacientes"), {
+                        nombre: nombrePaciente,
+                        dni: dniPaciente,
+                        obraSocial: obraSocialPaciente,
+                        creado: new Date()
+                    });
+                } catch (err) {
+                    console.error("Error al registrar el paciente nuevo:", err);
+                }
+            } else {
+                nombrePaciente = document.getElementById('turno-paciente-nombre').value;
+                dniPaciente = document.getElementById('buscar-paciente-input').value;
+                obraSocialPaciente = document.getElementById('turno-paciente-obra').value || "Particular";
+
+                if (!nombrePaciente) {
+                    alert("Por favor busque y seleccione un paciente o registre uno nuevo.");
+                    return;
+                }
+            }
+
+            const esPart = document.getElementById('turno-es-particular').checked;
+
+            const nuevoTurno = {
+                pacienteNombre: nombrePaciente,
+                pacienteDni: dniPaciente,
                 obraSocial: obraSocialPaciente,
+                fecha: document.getElementById('turno-fecha').value,
+                hora: document.getElementById('turno-hora').value,
+                motivo: document.getElementById('turno-motivo').value,
+                esParticular: esPart,
+                monto: esPart ? (parseFloat(document.getElementById('turno-monto').value) || 0) : 0,
+                medioPago: esPart ? document.getElementById('turno-medio-pago').value : "",
+                notas: document.getElementById('turno-notas').value,
+                estado: "Pendiente",
                 creado: new Date()
-            });
-        } catch (err) {
-            console.error("Error al registrar el paciente nuevo:", err);
-        }
-    } else {
-        nombrePaciente = document.getElementById('turno-paciente-nombre').value;
-        dniPaciente = document.getElementById('buscar-paciente-input').value;
-        obraSocialPaciente = document.getElementById('turno-paciente-obra').value || "Particular";
+            };
 
-        if (!nombrePaciente) {
-            alert("Por favor busque y seleccione un paciente o registre uno nuevo.");
-            return;
-        }
-    }
-
-    const esPart = document.getElementById('turno-es-particular').checked;
-
-    const nuevoTurno = {
-        pacienteNombre: nombrePaciente,
-        pacienteDni: dniPaciente,
-        obraSocial: obraSocialPaciente,
-        fecha: document.getElementById('turno-fecha').value,
-        hora: document.getElementById('turno-hora').value,
-        motivo: document.getElementById('turno-motivo').value,
-        esParticular: esPart,
-        monto: esPart ? (parseFloat(document.getElementById('turno-monto').value) || 0) : 0,
-        medioPago: esPart ? document.getElementById('turno-medio-pago').value : "",
-        notas: document.getElementById('turno-notas').value,
-        estado: "Pendiente",
-        creado: new Date()
-    };
-
-    try {
-        await addDoc(collection(db, "turnos"), nuevoTurno);
-        alert("¡Turno guardado con éxito!");
-        cerrarModalTurno();
-    } catch (error) {
-        console.error("Error al guardar turno:", error);
-        alert("Error al guardar el turno: " + error.message);
-    }
-};
+            try {
+                await addDoc(collection(db, "turnos"), nuevoTurno);
+                alert("¡Turno guardado con éxito!");
+                cerrarModalTurno();
+            } catch (error) {
+                console.error("Error al guardar turno:", error);
+                alert("Error al guardar el turno: " + error.message);
+            }
+        };
     </script>
 </body>
 </html>

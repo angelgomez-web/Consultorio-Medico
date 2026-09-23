@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultorio Médico - Turnero Inteligente</title>
+    <title>Consultorio Médico - Turnero Inteligente con Cobros</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -145,7 +145,7 @@
                         <h2 class="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                             <i data-lucide="calendar" class="text-primary-600"></i> Turnero Médico
                         </h2>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">Gestión de citas y sala de espera en tiempo real.</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Gestión de citas, particulares y cobros en tiempo real.</p>
                     </div>
                     <button onclick="abrirModalTurno()" class="px-4 py-2.5 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-semibold text-sm shadow-md shadow-primary-600/20 transition-all flex items-center justify-center gap-2">
                         <i data-lucide="plus-circle" class="w-4 h-4"></i> Agendar Nuevo Turno
@@ -167,8 +167,8 @@
                         <p class="text-2xl font-extrabold text-blue-700 dark:text-blue-300 mt-1" id="cnt-espera">0</p>
                     </div>
                     <div class="bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/50">
-                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Atendidos</span>
-                        <p class="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1" id="cnt-atendidos">0</p>
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Recaudado Hoy</span>
+                        <p class="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1" id="cnt-recaudado">$0</p>
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
                                 <tr>
                                     <th class="p-4">Hora</th>
                                     <th class="p-4">Paciente</th>
-                                    <th class="p-4">Obra Social</th>
+                                    <th class="p-4">Cobertura / Arancel</th>
                                     <th class="p-4">Motivo</th>
                                     <th class="p-4">Estado</th>
                                     <th class="p-4 text-right">Acciones</th>
@@ -255,7 +255,7 @@
                             <div>
                                 <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Obra Social / Prepaga</label>
                                 <select id="pac-osocial" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                                    <option value="Particular">Particular (Sin Obra Social)</option>
+                                    <option value="Particular">Particular (Abona Consulta)</option>
                                     <option value="OSDE">OSDE</option>
                                     <option value="Swiss Medical">Swiss Medical</option>
                                     <option value="IOMA">IOMA</option>
@@ -290,7 +290,7 @@
         </main>
     </div>
 
-    <!-- MODAL PARA AGENDAR TURNO -->
+    <!-- MODAL PARA AGENDAR TURNO CON COBRO PARTICULAR -->
     <div id="modal-turno" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5">
             <div class="flex justify-between items-center border-b border-slate-200 dark:border-slate-700 pb-3">
@@ -321,6 +321,31 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Hora *</label>
                         <input type="time" id="turno-hora" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
+                    </div>
+                </div>
+
+                <!-- COBRO PARTICULAR O COPAGO -->
+                <div class="bg-amber-50 dark:bg-amber-950/20 p-3.5 rounded-xl border border-amber-200 dark:border-amber-900/40 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1.5">
+                            <i data-lucide="dollar-sign" class="w-4 h-4"></i> ¿Abona Consulta Particular o Copago?
+                        </label>
+                        <input type="checkbox" id="turno-es-particular" class="w-4 h-4 text-primary-600 rounded focus:ring-primary-500" onchange="toggleSeccionParticular()">
+                    </div>
+
+                    <div id="sec-particular-campos" class="grid grid-cols-2 gap-3 hidden pt-2 border-t border-amber-200/60 dark:border-amber-900/40">
+                        <div>
+                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Monto ($)</label>
+                            <input type="number" id="turno-monto" placeholder="Ej: 15000" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-amber-700 dark:text-amber-400 mb-1">Medio de Pago</label>
+                            <select id="turno-medio-pago" class="w-full bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-800 rounded-lg px-3 py-1.5 text-sm font-semibold outline-none">
+                                <option value="Efectivo">Efectivo</option>
+                                <option value="Transferencia">Transferencia / MercadoPago</option>
+                                <option value="Tarjeta">Tarjeta Débito/Crédito</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -397,7 +422,6 @@
             const fechaSeleccionada = filtroFecha.value;
             const turnosDelDia = listaTurnosCache.filter(t => t.fecha === fechaSeleccionada);
 
-            // Ordenar por hora
             turnosDelDia.sort((a, b) => a.hora.localeCompare(b.hora));
 
             const tbody = document.getElementById('lista-turnos-tabla');
@@ -406,7 +430,7 @@
             let countTotal = turnosDelDia.length;
             let countPendientes = 0;
             let countEspera = 0;
-            let countAtendidos = 0;
+            let totalRecaudado = 0;
 
             if (turnosDelDia.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-400 font-medium">No hay turnos agendados para la fecha seleccionada (${fechaSeleccionada})</td></tr>`;
@@ -414,7 +438,10 @@
                 turnosDelDia.forEach((t) => {
                     if (t.estado === 'Pendiente') countPendientes++;
                     if (t.estado === 'En Espera') countEspera++;
-                    if (t.estado === 'Atendido') countAtendidos++;
+                    
+                    if (t.esParticular && t.monto) {
+                        totalRecaudado += Number(t.monto);
+                    }
 
                     let estadoBadge = '';
                     let botonAccion = '';
@@ -433,6 +460,19 @@
                         botonAccion = `-`;
                     }
 
+                    // Badge de Obra Social o Particular
+                    let infoPago = '';
+                    if (t.esParticular && t.monto) {
+                        infoPago = `
+                            <div>
+                                <span class="bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 text-xs font-bold px-2 py-0.5 rounded-md">💵 Particular: $${t.monto}</span>
+                                <span class="block text-[10px] text-slate-400 mt-0.5">Medio: ${t.medioPago || 'Efectivo'}</span>
+                            </div>
+                        `;
+                    } else {
+                        infoPago = `<span class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${t.obraSocial || 'Particular'}</span>`;
+                    }
+
                     tbody.innerHTML += `
                         <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                             <td class="p-4 font-bold text-slate-800 dark:text-slate-200">${t.hora} hs</td>
@@ -440,7 +480,7 @@
                                 <span class="font-bold block text-slate-900 dark:text-white">${t.pacienteNombre}</span>
                                 <span class="text-xs text-slate-400">DNI: ${t.pacienteDni}</span>
                             </td>
-                            <td class="p-4"><span class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${t.obraSocial || 'Particular'}</span></td>
+                            <td class="p-4">${infoPago}</td>
                             <td class="p-4 text-xs font-medium text-slate-600 dark:text-slate-400">${t.motivo}</td>
                             <td class="p-4">${estadoBadge}</td>
                             <td class="p-4 text-right">${botonAccion}</td>
@@ -452,7 +492,7 @@
             document.getElementById('cnt-total').innerText = countTotal;
             document.getElementById('cnt-pendientes').innerText = countPendientes;
             document.getElementById('cnt-espera').innerText = countEspera;
-            document.getElementById('cnt-atendidos').innerText = countAtendidos;
+            document.getElementById('cnt-recaudado').innerText = `$${totalRecaudado.toLocaleString('es-AR')}`;
         }
 
         filtroFecha.addEventListener('change', renderizarTurnos);
@@ -538,6 +578,12 @@
             txtInfo.innerText = `✓ Paciente Seleccionado: ${paciente.apellido}, ${paciente.nombre} (DNI: ${paciente.dni})`;
             txtInfo.classList.remove('hidden');
 
+            // Auto-activar particular si el paciente es Particular
+            if (paciente.osocial === 'Particular') {
+                document.getElementById('turno-es-particular').checked = true;
+                window.toggleSeccionParticular();
+            }
+
             buscadorInput.value = '';
             listaResultados.classList.add('hidden');
         }
@@ -552,6 +598,8 @@
                 return;
             }
 
+            const esParticular = document.getElementById('turno-es-particular').checked;
+
             try {
                 await addDoc(collection(db, "turnos"), {
                     pacienteId: pacId,
@@ -562,6 +610,9 @@
                     hora: document.getElementById('turno-hora').value,
                     motivo: document.getElementById('turno-motivo').value,
                     notas: document.getElementById('turno-notas').value,
+                    esParticular: esParticular,
+                    monto: esParticular ? (document.getElementById('turno-monto').value || 0) : 0,
+                    medioPago: esParticular ? document.getElementById('turno-medio-pago').value : '',
                     estado: 'Pendiente',
                     creado: new Date()
                 });
@@ -574,7 +625,7 @@
         });
     </script>
 
-    <!-- NAVEGACIÓN Y MODALES INTERFAZ -->
+    <!-- INTERFAZ -->
     <script>
         function navegarAModulo(idModulo, elementoBoton) {
             document.querySelectorAll('.modulo-vista').forEach(vista => vista.classList.remove('active'));
@@ -599,6 +650,17 @@
             document.getElementById('form-nuevo-turno').reset();
             document.getElementById('paciente-seleccionado-txt').classList.add('hidden');
             document.getElementById('turno-paciente-id').value = '';
+            document.getElementById('sec-particular-campos').classList.add('hidden');
+        }
+
+        function toggleSeccionParticular() {
+            const check = document.getElementById('turno-es-particular');
+            const sec = document.getElementById('sec-particular-campos');
+            if (check.checked) {
+                sec.classList.remove('hidden');
+            } else {
+                sec.classList.add('hidden');
+            }
         }
 
         window.onload = function() {

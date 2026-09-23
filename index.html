@@ -157,52 +157,24 @@
                     <div class="group relative bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer">
                         <span class="text-xs font-bold text-slate-400 uppercase">Total del día</span>
                         <p class="text-2xl font-extrabold text-slate-800 dark:text-white mt-1" id="cnt-total">0</p>
-                        
-                        <div id="tooltip-total" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-sky-400">Pacientes del Día</span>
-                            <div id="tooltip-total-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                                <span class="text-slate-400 text-[11px]">Sin turnos hoy</span>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- PENDIENTES -->
                     <div class="group relative bg-amber-50 dark:bg-amber-950/30 p-4 rounded-xl border border-amber-200 dark:border-amber-900/50 cursor-pointer">
                         <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase">Pendientes</span>
                         <p class="text-2xl font-extrabold text-amber-700 dark:text-amber-300 mt-1" id="cnt-pendientes">0</p>
-
-                        <div id="tooltip-pendientes" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-amber-400">Turnos Pendientes</span>
-                            <div id="tooltip-pendientes-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                                <span class="text-slate-400 text-[11px]">Sin pendientes</span>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- EN ESPERA -->
                     <div class="group relative bg-blue-50 dark:bg-blue-950/30 p-4 rounded-xl border border-blue-200 dark:border-blue-900/50 cursor-pointer">
                         <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase">En Espera</span>
                         <p class="text-2xl font-extrabold text-blue-700 dark:text-blue-300 mt-1" id="cnt-espera">0</p>
-
-                        <div id="tooltip-espera" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-blue-400">Pacientes en Espera</span>
-                            <div id="tooltip-espera-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                                <span class="text-slate-400 text-[11px]">Nadie en sala de espera</span>
-                            </div>
-                        </div>
                     </div>
 
                     <!-- RECAUDADO HOY -->
                     <div class="group relative bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/50 cursor-pointer">
                         <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase">Recaudado Hoy</span>
                         <p class="text-2xl font-extrabold text-emerald-700 dark:text-emerald-300 mt-1" id="cnt-recaudado">$0</p>
-
-                        <div id="tooltip-recaudado" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col w-64 p-3 bg-slate-900 text-white text-xs rounded-xl shadow-xl z-50 pointer-events-none transition-all">
-                            <span class="font-bold border-b border-slate-700 pb-1 mb-1 text-emerald-400">Detalle Particulares / Copagos</span>
-                            <div id="tooltip-recaudado-lista" class="space-y-1 max-h-36 overflow-y-auto">
-                                <span class="text-slate-400 text-[11px]">Sin ingresos particulares hoy</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -211,9 +183,6 @@
                     <div class="flex items-center gap-3">
                         <label class="text-xs font-bold text-slate-500 uppercase">Fecha:</label>
                         <input type="date" id="filtro-fecha-turno" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-sm font-semibold focus:ring-2 focus:ring-primary-500 outline-none">
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button onclick="filtrarFechaHoy()" class="px-3 py-1.5 text-xs font-bold bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-colors">Hoy</button>
                     </div>
                 </div>
 
@@ -249,82 +218,18 @@
                     </h2>
                     <p class="text-sm text-slate-500 dark:text-slate-400">Registro oficial de nuevos pacientes almacenados en Firebase.</p>
                 </div>
-
-                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm space-y-6">
-                    <form id="form-paciente" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">DNI / Documento *</label>
-                                <input type="text" id="pac-dni" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Apellido(s) *</label>
-                                <input type="text" id="pac-apellido" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Nombre(s) *</label>
-                                <input type="text" id="pac-nombre" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Fecha de Nacimiento</label>
-                                <input type="date" id="pac-fnac" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Sexo Biológico</label>
-                                <select id="pac-sexo" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                                    <option value="Masculino">Masculino</option>
-                                    <option value="Femenino">Femenino</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Teléfono / Celular</label>
-                                <input type="text" id="pac-telefono" placeholder="Ej: 11 4433-2211" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Obra Social / Prepaga</label>
-                                <select id="pac-osocial" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                                    <option value="Particular">Particular (Abona Consulta)</option>
-                                    <option value="OSDE">OSDE</option>
-                                    <option value="Swiss Medical">Swiss Medical</option>
-                                    <option value="IOMA">IOMA</option>
-                                    <option value="PAMI">PAMI</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">N° Afiliado</label>
-                                <input type="text" id="pac-afiliado" placeholder="Ej: 0-1234567-01" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Plan</label>
-                                <input type="text" id="pac-plan" placeholder="Ej: 210 / 310" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end gap-3 pt-4">
-                            <button type="submit" class="px-6 py-2.5 rounded-xl bg-primary-600 text-white hover:bg-primary-700 font-semibold text-sm shadow-md transition-all flex items-center gap-2">
-                                <i data-lucide="check" class="w-4 h-4"></i> Guardar Paciente en Firebase
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
 
             <!-- OTROS MÓDULOS -->
-            <div id="mod-atencion" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Atención Médica</h2><p class="text-slate-500">Módulo de historia clínica.</p></div>
-            <div id="mod-fichas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Fichas y Estudios</h2><p class="text-slate-500">Repositorio de archivos.</p></div>
-            <div id="mod-estadisticas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Estadísticas</h2><p class="text-slate-500">Panel métrico.</p></div>
-            <div id="mod-balance" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Balance</h2><p class="text-slate-500">Gestión de ingresos.</p></div>
+            <div id="mod-atencion" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Atención Médica</h2></div>
+            <div id="mod-fichas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Fichas y Estudios</h2></div>
+            <div id="mod-estadisticas" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Estadísticas</h2></div>
+            <div id="mod-balance" class="modulo-vista space-y-6"><h2 class="text-2xl font-bold">Balance</h2></div>
 
         </main>
     </div>
 
-    <!-- MODAL AGENDAR TURNO (CENTRADO Y FLOTANTE) -->
+    <!-- MODAL AGENDAR TURNO (EKSATO ITI TENGNGA TI SCREEN) -->
     <div id="modal-turno" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
         <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 dark:border-slate-700 space-y-5 relative my-auto">
             

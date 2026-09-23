@@ -784,6 +784,97 @@
         sec.classList.add('hidden');
     }
 }
+        // ====================================================
+// FUNCIÓN PARA CARGAR DATOS DE PRUEBA (EJECUTAR UNA VEZ)
+// ====================================================
+window.cargarPacientesPrueba = async function() {
+    const hoyStr = new Date().toISOString().split('T')[0];
+
+    const datosPrueba = [
+        {
+            nombre: "Gómez, María",
+            dni: "32456789",
+            obraSocial: "OSDE",
+            monto: 0,
+            esParticular: false,
+            medioPago: "",
+            hora: "09:00",
+            motivo: "Consulta General",
+            estado: "Atendido",
+            fecha: hoyStr
+        },
+        {
+            nombre: "Pérez, Juan Carlos",
+            dni: "28912345",
+            obraSocial: "Particular",
+            monto: 15000,
+            esParticular: true,
+            medioPago: "Efectivo",
+            hora: "09:30",
+            motivo: "Control de Tratamiento",
+            estado: "Atendido",
+            fecha: hoyStr
+        },
+        {
+            nombre: "Fernández, Laura",
+            dni: "38123987",
+            obraSocial: "Swiss Medical",
+            monto: 0,
+            esParticular: false,
+            medioPago: "",
+            hora: "10:15",
+            motivo: "Revisión de Estudios",
+            estado: "En Espera",
+            fecha: hoyStr
+        },
+        {
+            nombre: "Rodríguez, Lucas",
+            dni: "41555666",
+            obraSocial: "Particular",
+            monto: 18000,
+            esParticular: true,
+            medioPago: "Transferencia",
+            hora: "11:00",
+            motivo: "Urgencia / Consulta Aguda",
+            estado: "En Espera",
+            fecha: hoyStr
+        },
+        {
+            nombre: "López, Ana María",
+            dni: "25888999",
+            obraSocial: "IOMA",
+            monto: 0,
+            esParticular: false,
+            medioPago: "",
+            hora: "11:30",
+            motivo: "Consulta General",
+            estado: "Pendiente",
+            fecha: hoyStr
+        }
+    ];
+
+    try {
+        for (const t of datosPrueba) {
+            await addDoc(collection(db, "turnos"), {
+                pacienteNombre: t.nombre,
+                pacienteDni: t.dni,
+                obraSocial: t.obraSocial,
+                monto: t.monto,
+                esParticular: t.esParticular,
+                medioPago: t.medioPago,
+                hora: t.hora,
+                motivo: t.motivo,
+                estado: t.estado,
+                fecha: t.fecha,
+                creado: new Date()
+            });
+        }
+        alert("✅ ¡5 Pacientes de prueba cargados exitosamente!");
+    } catch (e) {
+        console.error("Error al cargar prueba:", e);
+        alert("Error al cargar datos: " + e.message);
+    }
+};
     </script>
 </body>
 </html>
